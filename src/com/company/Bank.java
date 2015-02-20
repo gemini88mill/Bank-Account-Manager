@@ -33,20 +33,25 @@ public class Bank extends Thread {
         Account checking = getChecking();
         Account savings = getSavings();
         Date timestamp = new Date();
+        double withdrawalHold = 0;
 
+        if (checking.getBalance() > 0) {
+            if (accountType.toUpperCase().equals(CHECKING)) {
+                checking.setBalance(checking.getBalance() - (withdrawal - withdrawalHold));
+                
 
-        if (accountType.toUpperCase().equals(CHECKING)){
+            } else if (accountType.toUpperCase().equals(SAVINGS)) {
+                savings.setBalance(savings.getBalance() - withdrawal);
 
-            checking.setBalance(checking.getBalance() - withdrawal);
+            } else {
+                System.err.println("NO ACCOUNT FOUND");
+            }
 
-        } else if (accountType.toUpperCase().equals(SAVINGS)){
-            savings.setBalance(savings.getBalance() - withdrawal);
-
-        } else{
-            System.err.println("NO ACCOUNT FOUND");
+            System.out.println("Withdrawal made at: " + timestamp.toString() + " to Account: " + accountType.toUpperCase());
+        } else if (checking.getBalance() < 0) {
+            System.out.println("Negative Balance...");
+            withdrawalHold = withdrawalHold + withdrawal;
         }
-
-        System.out.println("Withdrawal made at: " + timestamp.toString() + " to Account: " + accountType.toUpperCase());
     }
 
     public void deposit(double deposit, String accountType){
