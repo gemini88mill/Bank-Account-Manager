@@ -1,6 +1,5 @@
 package com.company;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Main  {
@@ -19,6 +18,18 @@ public class Main  {
         Account checking = new Account(100.00, new Date(), 319650141);
         Account savings = new Account(150.00, new Date(), 319650142);
 
+        //attempt for array of deposits and withdrawals
+        double[] deposits = new double[100];
+        double[] withdrawals = new double[100];
+
+        for (int x = 0; x < deposits.length; x++) {
+            deposits[x] = setDepositsandWithdrawals(deposits[x]);
+            withdrawals[x] = setDepositsandWithdrawals(withdrawals[x]);
+            //System.out.println(deposits[x] + "\t" + withdrawals[x]);
+        }
+
+        //-------------------------------------------------
+
         //open the bank
         bank = new Bank();
 
@@ -30,19 +41,28 @@ public class Main  {
         //prints out current information regarding checking and savings account
         print();
 
-        makeDeposit(17.07, "checking");
-        // --------------------------------------
-        try {
-            bank.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // sleeps program for 3 secs to test for timestamp issues
-        makeWithdrawal(32.17, "savings");
+        for (int i = 0; i < deposits.length; i++) {
 
+            try {
+                makeDeposit(deposits[i], "checking");
+                bank.sleep(500);
+                makeWithdrawal(withdrawals[i], "checking");
+                bank.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
         print();
 
     }
+
+    private static double setDepositsandWithdrawals(double deposit) {
+        double randomVal = Math.random();
+        double d = randomVal * 100;
+        return d;
+    }
+
 
     /**
      * makedeposit() method, sends data to Bank class for deposits only
