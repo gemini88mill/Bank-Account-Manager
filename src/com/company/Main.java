@@ -38,6 +38,11 @@ public class Main  {
         bank.setChecking(checking);
         bank.setSavings(savings);
 
+        checking.start();
+        savings.start();
+
+        checking.run();
+
         //prints out current information regarding checking and savings account
         print();
 
@@ -45,9 +50,9 @@ public class Main  {
 
             try {
                 makeDeposit(deposits[i], "checking");
-                bank.sleep(500);
+                checking.sleep(5);
                 makeWithdrawal(withdrawals[i], "checking");
-                bank.sleep(500);
+                checking.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

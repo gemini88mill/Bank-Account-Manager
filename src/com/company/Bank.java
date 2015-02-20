@@ -29,17 +29,19 @@ public class Bank extends Thread {
     *           same as transfer but for outside accounts
     **/
 
-    public void withdrawal(double withdrawal, String accountType){
+    public synchronized void withdrawal(double withdrawal, String accountType){
         Account checking = getChecking();
         Account savings = getSavings();
         Date timestamp = new Date();
 
+
         if (accountType.toUpperCase().equals(CHECKING)){
+
             checking.setBalance(checking.getBalance() - withdrawal);
-            //timestamp = checking.getTimestamp();
+
         } else if (accountType.toUpperCase().equals(SAVINGS)){
             savings.setBalance(savings.getBalance() - withdrawal);
-            //timestamp = savings.getTimestamp();
+
         } else{
             System.err.println("NO ACCOUNT FOUND");
         }
