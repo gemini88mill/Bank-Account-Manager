@@ -9,7 +9,10 @@ public class Main  {
      * withdrawals, transfers and bill pays. */
     private static Bank bank;
 
-
+    /**
+     * main method starts the program
+     * @param args
+     */
     public static void main(String[] args) {
 	// start
         SimpleDateFormat sdf = new SimpleDateFormat("");
@@ -38,15 +41,28 @@ public class Main  {
 
     }
 
-    
+    /**
+     * makedeposit() method, sends data to Bank class for deposits only
+     * @param depositAmount
+     * @param accountType
+     */
     private static void makeDeposit(double depositAmount, String accountType){
         bank.deposit(depositAmount, accountType);
     }
 
+    /**
+     * makeWithdrawal() method within Main() class, allows for data to be sent to Bank
+     * class
+     * @param withdrawalAmount
+     * @param accountType
+     */
     private static void makeWithdrawal(double withdrawalAmount, String accountType){
         bank.withdrawal(withdrawalAmount, accountType);
     }
 
+    /**
+     * print method, prints out current information for savings and checking balance
+     */
     private static void print(){
         System.out.println("Savings Balance: \t" + bank.getSavings().getBalance() +
                 " at " + new Date().toString() + "\nAcct#: " +
